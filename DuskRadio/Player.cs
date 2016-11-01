@@ -29,11 +29,12 @@ namespace DuskRadio
                 if (value > 1)
                 {
                     volumn = 1;
-                }else if(volumn < 0)
+                }
+                else if (volumn < 0)
                 {
                     volumn = 0;
                 }
-
+                volumn = value;
                 SetVolumn();
             }
         }
@@ -60,11 +61,9 @@ namespace DuskRadio
         /// <returns></returns>
         public async Task<bool> Play(string url)
         {
-            if (amsResult == null)
-                amsResult = await AdaptiveMediaSource.CreateFromUriAsync(new Uri(url, UriKind.Absolute));
+            amsResult = await AdaptiveMediaSource.CreateFromUriAsync(new Uri(url, UriKind.Absolute));
             if (amsResult.Status == AdaptiveMediaSourceCreationStatus.Success)
             {
-
                 AdaptiveMediaSource ams = amsResult.MediaSource;
                 mediaElement.SetMediaStreamSource(ams);
                 mediaElement.Play();
@@ -87,7 +86,8 @@ namespace DuskRadio
         /// </summary>
         public void Pause()
         {
-            if (mediaElement != null)
+            if (mediaElement != null
+                && mediaElement.CurrentState == Windows.UI.Xaml.Media.MediaElementState.Playing)
                 mediaElement.Pause();
         }
     }
