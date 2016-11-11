@@ -21,6 +21,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 //“空白页”项模板在 http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409 上有介绍
@@ -44,7 +46,7 @@ namespace DuskRadio
 
         private async void BindList()
         {
-            nodeList = await XmlNodeHelper.GetNodeList(@".\Resources\live.xml");
+            nodeList = await XmlNodeHelper.GetNodeList("live.xml");
             var nodeViewList = new List<RadioViewModel>();
             int i = 1;
             foreach (var item in nodeList)
@@ -106,6 +108,7 @@ namespace DuskRadio
             panel.ItemWidth = e.NewSize.Width - 20;
         }
 
+
         /// <summary>
         /// 选中
         /// </summary>
@@ -117,6 +120,7 @@ namespace DuskRadio
             {
                 var item = radioList.SelectedItem as RadioNode;
                 playUrl = item.PlayURL;
+                showText.Text = item.Label;
             }
         }
 
@@ -130,9 +134,11 @@ namespace DuskRadio
             if (!await CheckUrl())
                 return;
 
+            SetBtnPlay();
             var result = await player.Play(playUrl);
             if (!result)
             {
+                SetBtnStop();
                 var dialog = new ContentDialog()
                 {
                     Title = " 提示",
@@ -144,18 +150,62 @@ namespace DuskRadio
             }
         }
 
+        /// <summary>
+        /// 指针滑入
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             var grid = sender as Grid;
             grid.Background = new SolidColorBrush(Color.FromArgb((byte)255, (byte)220, (byte)220, (byte)220));
         }
 
+        /// <summary>
+        /// 指针滑出
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Grid_PointerExited(object sender, PointerRoutedEventArgs e)
         {
             var grid = sender as Grid;
             var block = grid.Children[1] as TextBlock;
             if (int.Parse(block.Text) % 2 != 0)
                 grid.Background = new SolidColorBrush(Colors.White);
+        }
+
+        /// <summary>
+        /// 按钮点击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void Image_PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            if (!await CheckUrl())
+                return;
+
+            if (player.IsPlaying())
+            {
+                SetBtnStop();
+                player.Stop();
+            }
+            else
+            {
+                SetBtnPlay();
+                await player.Play(playUrl);
+            }
+        }
+
+        private void SetBtnStop()
+        {
+            playBtn.Source = new BitmapImage(new Uri(@"ms-appx:///Assets/play.png"));
+
+        }
+
+        private void SetBtnPlay()
+        {
+            playBtn.Source = new BitmapImage(new Uri(@"ms-appx:///Assets/pause.png"));
+
         }
     }
 }

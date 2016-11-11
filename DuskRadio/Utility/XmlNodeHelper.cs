@@ -15,7 +15,7 @@ namespace DuskRadio.Utility
         private static XmlDocument document = null;
         private static IList<RadioNode> playNodeList = null;
 
-        public static Task<IList<RadioNode>> GetNodeList(string path)
+        public static Task<IList<RadioNode>> GetNodeList(string fileName)
         {
             return Task.Run(async () =>
             {
@@ -29,7 +29,7 @@ namespace DuskRadio.Utility
                 {
                     StorageFolder appInstalledFolder = Windows.ApplicationModel.Package.Current.InstalledLocation;
                     StorageFolder assets = await appInstalledFolder.GetFolderAsync("Assets");
-                    var file = await assets.GetFileAsync("live.xml");
+                    var file = await assets.GetFileAsync(fileName);
                     string xmlContent = await FileIO.ReadTextAsync(file);
 
                     document = new XmlDocument();

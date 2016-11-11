@@ -112,6 +112,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\live.xml" />
+    <Content Include="Assets\pause.png" />
+    <Content Include="Assets\play.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

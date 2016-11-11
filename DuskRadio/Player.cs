@@ -47,6 +47,17 @@ namespace DuskRadio
         }
 
         /// <summary>
+        /// 是否处于播放中
+        /// </summary>
+        /// <returns></returns>
+        public bool IsPlaying()
+        {
+            return mediaElement.CurrentState != Windows.UI.Xaml.Media.MediaElementState.Closed
+                && mediaElement.CurrentState != Windows.UI.Xaml.Media.MediaElementState.Paused
+                && mediaElement.CurrentState != Windows.UI.Xaml.Media.MediaElementState.Stopped;
+        }
+
+        /// <summary>
         /// 设置MediaElement音量
         /// </summary>
         private void SetVolumn()
