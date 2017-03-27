@@ -17,8 +17,9 @@
             <ColumnDefinition Width="40*"/>
         </Grid.ColumnDefinitions>
         <!--Row 0,Column 0-->
-        <TextBlock x:Name="showText" Grid.Column="0" Grid.Row="0" Margin="10,10,10,10">
+        <TextBlock x:Name="showText" Grid.Column="0" Grid.Row="0" Margin="0,20,0,0" FontSize="20" HorizontalAlignment="Center">
         </TextBlock>
+        <Image Grid.Column="0" Grid.Row="0" Source="/Assets/logo.png" Width="190" Height="60"></Image>
         <!--Row 0,Column 0 END-->
         <!--Row 1,Column 0-->
         <Grid Grid.Row="1" Grid.Column="0">
@@ -31,7 +32,7 @@
         </Grid>
         <!--Row 1,Column 0 END-->
         <!--Row 0,Column 1-->
-        <GridView x:Name="radioList" Grid.Row="0" Grid.Column="1" SizeChanged="radioList_SizeChanged" SelectionChanged="radioList_SelectionChanged" DoubleTapped="radioList_DoubleTapped">
+        <GridView x:Name="radioList" Grid.Row="0" Grid.Column="1" Margin="0,20,0,20" SizeChanged="radioList_SizeChanged" SelectionChanged="radioList_SelectionChanged" DoubleTapped="radioList_DoubleTapped">
             <GridView.ItemTemplate>
                 <DataTemplate>
                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="{Binding Color}" PointerEntered="Grid_PointerEntered" PointerExited="Grid_PointerExited">

@@ -56,7 +56,7 @@ namespace DuskRadio
                     Index = i,
                     Label = item.Label,
                     PlayURL = item.PlayURL,
-                    Color = i % 2 != 0 ? "White" : "#DCDCDC"
+                    Color = i % 2 != 0 ? "White" : "#F0F0F0"
                 });
                 i++;
             }
@@ -158,7 +158,7 @@ namespace DuskRadio
         private void Grid_PointerEntered(object sender, PointerRoutedEventArgs e)
         {
             var grid = sender as Grid;
-            grid.Background = new SolidColorBrush(Color.FromArgb((byte)255, (byte)220, (byte)220, (byte)220));
+            grid.Background = new SolidColorBrush(Color.FromArgb((byte)255, (byte)240, (byte)240, (byte)240));
         }
 
         /// <summary>
